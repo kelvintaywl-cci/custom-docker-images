@@ -23,15 +23,8 @@ jobs:
           docker image build -t << parameters.repo-name >> -f << parameters.dockerfile >> .
       - run: |
           docker image ls
-      - run:
-          name: Spin container in background
-          command: |
-            docker container run --name sleeping_beauty << parameters.repo-name >> sleep 5000
-          background: true
       - run: |
-          docker ps
-
-          docker exec sleeping_beauty bash -c "printenv BASH_ENV"
+          docker container run --rm << parameters.repo-name >> bash -c "printenv BASH_ENV"
 
 workflows:
   build:
