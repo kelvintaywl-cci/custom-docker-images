@@ -15,23 +15,23 @@ jobs:
       repo-name:
         type: string
         default: myimage
-  steps:
-    - setup_remote_docker:
-        version: 20.10.14
-    - checkout
-    - run: |
-        docker image build -t << parameters.repo-name >> -f << parameters.dockerfile >> .
-    - run: |
-        docker image ls
-    - run:
-        name: Spin container in background
-        command: |
-          docker container run --name sleeping_beauty << parameters.repo-name >> sleep 5000
-        background: true
-    - run: |
-        docker ps
+    steps:
+      - setup_remote_docker:
+          version: 20.10.14
+      - checkout
+      - run: |
+          docker image build -t << parameters.repo-name >> -f << parameters.dockerfile >> .
+      - run: |
+          docker image ls
+      - run:
+          name: Spin container in background
+          command: |
+            docker container run --name sleeping_beauty << parameters.repo-name >> sleep 5000
+          background: true
+      - run: |
+          docker ps
 
-        docker exec sleeping_beauty bash -c "printenv BASH_ENV"
+          docker exec sleeping_beauty bash -c "printenv BASH_ENV"
 
 workflows:
   build:
