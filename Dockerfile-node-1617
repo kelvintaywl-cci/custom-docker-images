@@ -1,0 +1,3 @@
+FROM cimg/node:16.17
+
+ENV BASH_ENV /home/circleci/.circlerc
